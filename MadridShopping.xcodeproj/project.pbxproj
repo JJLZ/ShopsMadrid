@@ -56,15 +56,55 @@
 		88FF412A1EC6789100F66DF9 /* MadridShopping */ = {
 			isa = PBXGroup;
 			children = (
-				88FF412B1EC6789100F66DF9 /* AppDelegate.swift */,
-				88FF412D1EC6789100F66DF9 /* ViewController.swift */,
-				88FF412F1EC6789100F66DF9 /* Main.storyboard */,
-				88FF41351EC6789100F66DF9 /* Assets.xcassets */,
-				88FF41371EC6789100F66DF9 /* LaunchScreen.storyboard */,
-				88FF413A1EC6789100F66DF9 /* Info.plist */,
-				88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */,
+				88FF41401EC67A9100F66DF9 /* Delegate */,
+				88FF41421EC67AB100F66DF9 /* View */,
+				88FF41441EC67AD200F66DF9 /* Model */,
+				88FF41411EC67A9C00F66DF9 /* Controller */,
+				88FF41431EC67AC800F66DF9 /* Resources */,
 			);
 			path = MadridShopping;
+			sourceTree = "<group>";
+		};
+		88FF41401EC67A9100F66DF9 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				88FF412B1EC6789100F66DF9 /* AppDelegate.swift */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		88FF41411EC67A9C00F66DF9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				88FF412D1EC6789100F66DF9 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		88FF41421EC67AB100F66DF9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88FF41371EC6789100F66DF9 /* LaunchScreen.storyboard */,
+				88FF412F1EC6789100F66DF9 /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		88FF41431EC67AC800F66DF9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				88FF41351EC6789100F66DF9 /* Assets.xcassets */,
+				88FF413A1EC6789100F66DF9 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		88FF41441EC67AD200F66DF9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
