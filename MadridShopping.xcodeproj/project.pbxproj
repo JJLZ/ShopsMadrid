@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412B1EC6789100F66DF9 /* AppDelegate.swift */; };
-		88FF412E1EC6789100F66DF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412D1EC6789100F66DF9 /* ViewController.swift */; };
+		88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412D1EC6789100F66DF9 /* MainViewController.swift */; };
 		88FF41311EC6789100F66DF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88FF412F1EC6789100F66DF9 /* Main.storyboard */; };
 		88FF41341EC6789100F66DF9 /* MadridShopping.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */; };
 		88FF41361EC6789100F66DF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88FF41351EC6789100F66DF9 /* Assets.xcassets */; };
@@ -21,7 +21,7 @@
 /* Begin PBXFileReference section */
 		88FF41281EC6789100F66DF9 /* MadridShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadridShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88FF412B1EC6789100F66DF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		88FF412D1EC6789100F66DF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		88FF412D1EC6789100F66DF9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		88FF41301EC6789100F66DF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88FF41331EC6789100F66DF9 /* MadridShopping.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MadridShopping.xcdatamodel; sourceTree = "<group>"; };
 		88FF41351EC6789100F66DF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		88FF41411EC67A9C00F66DF9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				88FF412D1EC6789100F66DF9 /* ViewController.swift */,
+				88FF412D1EC6789100F66DF9 /* MainViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 			files = (
 				88FF41491EC6864700F66DF9 /* Downloader.swift in Sources */,
 				88FF41341EC6789100F66DF9 /* MadridShopping.xcdatamodeld in Sources */,
-				88FF412E1EC6789100F66DF9 /* ViewController.swift in Sources */,
+				88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */,
 				88FF41461EC67BC000F66DF9 /* Reachability.swift in Sources */,
 				88FF414B1EC68BF300F66DF9 /* Global.swift in Sources */,
 				88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */,

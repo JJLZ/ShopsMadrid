@@ -15,64 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
-    {
-        // Is json file in local?
-        if !isJSONInLocal() // json is not in local
-        {
-            // Download json
-            // Check
-            if isInternetAvailable() // Internet connection available
-            {
-                if let url = URL(string: Global.AppURL.jsonRemoteURL)
-                {
-                    // url for local json file
-                    var jsonFileUrl = Downloader.applicationDocumentsDirectory()
-                    jsonFileUrl.appendPathComponent(Global.Constant.jsonLocalName)
-                 
-                    // Download json to local
-                    Downloader.load(url: url, to: jsonFileUrl, completion: {
-                        
-                        // update flag
-                        let defaults = UserDefaults.standard
-                        defaults.set(true, forKey: Global.UserDefaults.jsonDownloaded)
-                        defaults.synchronize()
-                    })
-                }
-            }
-            else    // No Internet connection > show alert to the user
-            {
-                let alertController = UIAlertController(title          : "Internet not available",
-                                                        message        : "Connection required to download shops info, please connect.",
-                                                        preferredStyle : .alert)
-                
-                let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-                    
-                    fatalError(Global.ErrorMessage.errorLoadingJSONFile)
-                })
-                
-                alertController.addAction(actionCancel)
-                
-                DispatchQueue.main.async {
-                    
-                    self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
-                }
-            }
-        }
-        
-        // load json to sqlite storage using CoreData
-        // load data from sqlite storage using CoreData
-        // update UI
-        
+    {        
         return true
     }
     
-    func isJSONInLocal() -> Bool
-    {
-        let defaults = UserDefaults.standard
-        
-        return defaults.bool(forKey: Global.UserDefaults.jsonDownloaded)
-    }
-
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
