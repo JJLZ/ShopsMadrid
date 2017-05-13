@@ -13,6 +13,9 @@
 		88FF41341EC6789100F66DF9 /* MadridShopping.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */; };
 		88FF41361EC6789100F66DF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88FF41351EC6789100F66DF9 /* Assets.xcassets */; };
 		88FF41391EC6789100F66DF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88FF41371EC6789100F66DF9 /* LaunchScreen.storyboard */; };
+		88FF41461EC67BC000F66DF9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF41451EC67BC000F66DF9 /* Reachability.swift */; };
+		88FF41491EC6864700F66DF9 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF41481EC6864700F66DF9 /* Downloader.swift */; };
+		88FF414B1EC68BF300F66DF9 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF414A1EC68BF300F66DF9 /* Global.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		88FF41351EC6789100F66DF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88FF41381EC6789100F66DF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		88FF413A1EC6789100F66DF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88FF41451EC67BC000F66DF9 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		88FF41481EC6864700F66DF9 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		88FF414A1EC68BF300F66DF9 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,7 @@
 				88FF41421EC67AB100F66DF9 /* View */,
 				88FF41441EC67AD200F66DF9 /* Model */,
 				88FF41411EC67A9C00F66DF9 /* Controller */,
+				88FF41471EC67BC500F66DF9 /* Utils */,
 				88FF41431EC67AC800F66DF9 /* Resources */,
 			);
 			path = MadridShopping;
@@ -69,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				88FF412B1EC6789100F66DF9 /* AppDelegate.swift */,
+				88FF414A1EC68BF300F66DF9 /* Global.swift */,
 			);
 			name = Delegate;
 			sourceTree = "<group>";
@@ -84,8 +92,8 @@
 		88FF41421EC67AB100F66DF9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				88FF41371EC6789100F66DF9 /* LaunchScreen.storyboard */,
 				88FF412F1EC6789100F66DF9 /* Main.storyboard */,
+				88FF41371EC6789100F66DF9 /* LaunchScreen.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -105,6 +113,15 @@
 				88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		88FF41471EC67BC500F66DF9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				88FF41481EC6864700F66DF9 /* Downloader.swift */,
+				88FF41451EC67BC000F66DF9 /* Reachability.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,8 +197,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88FF41491EC6864700F66DF9 /* Downloader.swift in Sources */,
 				88FF41341EC6789100F66DF9 /* MadridShopping.xcdatamodeld in Sources */,
 				88FF412E1EC6789100F66DF9 /* ViewController.swift in Sources */,
+				88FF41461EC67BC000F66DF9 /* Reachability.swift in Sources */,
+				88FF414B1EC68BF300F66DF9 /* Global.swift in Sources */,
 				88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
