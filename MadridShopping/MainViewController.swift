@@ -16,6 +16,12 @@ var downloadQueue: OperationQueue = {
     return queue
 }()
 
+enum MainVCState {
+    case Downloading
+    case Ready
+    case NoInternet
+}
+
 class MainViewController: UIViewController {
     
     // MARK: Outlet's
@@ -29,9 +35,8 @@ class MainViewController: UIViewController {
         
         super.viewDidLoad()
         
-        // Initial setup
-        btnTryAgain.isHidden = true
-        btnShowShops.isHidden = true
+        // Initial state
+        setStateControls(state: .Downloading)
         
         // Download JSON file
         downloadQueue.addOperation(DownloadJSON(mainVC: self))
@@ -51,6 +56,26 @@ class MainViewController: UIViewController {
     @IBAction func tryLoadDataAgain(_ sender: Any) {
         
         viewDidLoad()
+    }
+    
+    //--newcode now --//
+    func setStateControls(state: MainVCState)
+    {
+        switch state
+        {
+        case .Downloading:
+            vIndicator.startAnimating()
+            btnTryAgain.isHidden = true
+            btnShowShops.isHidden = true
+        case .Ready:
+            vIndicator.stopAnimating()
+            btnTryAgain.isHidden = true
+            btnShowShops.isHidden = false
+        case .NoInternet:
+            vIndicator.stopAnimating()
+            btnTryAgain.isHidden = false
+            btnShowShops.isHidden = true
+        }
     }
 }
 
@@ -72,8 +97,6 @@ class DownloadJSON: Operation
         // Is json file in local?
         if !isJSONInLocal() // json is not in local
         {
-            self.mainVC.vIndicator.startAnimating()
-            
             // Download json
             // Check
             if isInternetAvailable() // Internet connection available
@@ -94,10 +117,10 @@ class DownloadJSON: Operation
                         
                         // Begins next Operation
                         DispatchQueue.main.async {
-                            self.mainVC.vIndicator.stopAnimating()
                             downloadQueue.addOperation(LoadData())
+                            
                             //--newcode now --//
-                            self.mainVC.btnTryAgain.isHidden = true
+                            self.mainVC.setStateControls(state: .Downloading)
                         }
                     })
                 }
@@ -115,17 +138,20 @@ class DownloadJSON: Operation
                 alertController.addAction(actionCancel)
                 
                 DispatchQueue.main.async {
-                    self.mainVC.vIndicator.stopAnimating()
-                    self.mainVC.btnTryAgain.isHidden = false
                     self.mainVC.present(alertController, animated: true, completion: {})
+                    
+                    //--newcode now --//
+                    self.mainVC.setStateControls(state: .NoInternet)
                 }
             }
         }
-        else
+        else    // continue con second operation
         {
             DispatchQueue.main.async {
-                self.mainVC.vIndicator.stopAnimating()
                 downloadQueue.addOperation(LoadData())
+                
+                //--newcode now --//
+                self.mainVC.setStateControls(state: .Downloading)
             }
         }
     }
