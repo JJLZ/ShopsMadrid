@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //--newcode now --//
         // Clear data
-//        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-//        let processing = JSONProcessing(url: getLocalJSONPath(), context: context)
-//        processing.clearData(context: context)
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let processing = JSONProcessing(url: getLocalJSONPath(), context: context)
+        processing.clearData(context: context)
         
         return true
     }

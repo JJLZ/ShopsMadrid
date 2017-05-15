@@ -23,9 +23,9 @@ class Downloader {
             if let tempLocalUrl = tempLocalUrl, error == nil {
                 
                 // Success
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    print("Downloader load Success: \(statusCode)")
-                }
+//                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+//                    print("Downloader load Success: \(statusCode)")
+//                }
                 
                 do {
                     try FileManager.default.copyItem(at: tempLocalUrl, to: localUrl)

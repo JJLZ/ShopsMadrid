@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 // MARK: Properties
 var downloadQueue: OperationQueue = {
@@ -28,6 +29,9 @@ class MainViewController: UIViewController {
     @IBOutlet weak var vIndicator: UIActivityIndicatorView!
     @IBOutlet weak var btnTryAgain: UIButton!
     @IBOutlet weak var btnShowShops: UIButton!
+    
+    // MARK: Properties
+    let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
 
     // MARK: View Controller Life cycle
     
@@ -40,15 +44,11 @@ class MainViewController: UIViewController {
         
         // Download JSON file
         downloadQueue.addOperation(DownloadJSON(mainVC: self))
-        
-        // load json to sqlite storage using CoreData
-        // load data from sqlite storage using CoreData
-        // update UI
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: Methods
@@ -91,19 +91,11 @@ class MainViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: Navigation
-    
-    //--newcode now --//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-//    {
-//        super.prepare(for: segue, sender: sender)
-//        
-//        if segue.identifier == "showShopsVC"
-//        {
-//            let nav = segue.destination as! UINavigationController
-//            let shopsVC = nav.viewControllers.first as! ShopsViewController
-//        }
-//    }
+    // MARK: Actions
+    @IBAction func showShops(_ sender: Any)
+    {
+        performSegue(withIdentifier: "showShopsVC", sender: nil)
+    }
 }
 
 // Operation is an abstract class, designed for subclassing. Each subclass represents a specific task.
@@ -124,6 +116,10 @@ class DownloadJSON: Operation
         // Is json file in local?
         if !isJSONInLocal() // json is not in local
         {
+            //--newcode now --
+            print("Init Operation: DownloadJSON")
+            //--
+            
             // Download json
             // Check
             if isInternetAvailable() // Internet connection available
@@ -207,6 +203,10 @@ class LoadData: Operation
     
     override func main()
     {
+        //--newcode now --
+        print("Init Operation: LoadData")
+        //--
+        
         let processing = JSONProcessing(url: getLocalJSONPath(), context: self.context)
         
         processing.getDataWith { (result) in
@@ -215,11 +215,12 @@ class LoadData: Operation
             {
             case .Success(let data):
                 
+                //--newcode falta completion? --//
                 processing.saveInCoreDataWith(array: data)
                 
-                //--newcode show --
-                self.mainVC.performSegue(withIdentifier: "showShopsVC", sender: nil)
-                //--
+                // Continue with cache of images
+                self.mainVC.setStateControls(state: .Downloading)
+                downloadQueue.addOperation(CacheImages(mainVC: self.mainVC))
                 
             case .Error(let message):   
                 
@@ -236,6 +237,58 @@ class LoadData: Operation
         url.appendPathComponent(Global.Constant.jsonLocalName)
 
         return url
+    }
+}
+
+class CacheImages: Operation
+{
+    // MARK: Properties
+    var mainVC: MainViewController
+    var context: NSManagedObjectContext
+    
+    // MARK: Init
+    init(mainVC: MainViewController)
+    {
+        self.mainVC = mainVC
+        self.context = mainVC.context
+    }
+    
+    override func main()
+    {
+        //--newcode now --
+        print("Init Operation: CacheImages")
+        //--
+
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        let entityDesc = NSEntityDescription.entity(forEntityName: "Shop", in: context)
+        request.entity = entityDesc
+        do
+        {
+            let results = try context.fetch(request)
+            
+            for item in results {
+                
+                let shop = item as! Shop
+                let imageURL: String = shop.imageURL!
+                let logoURL: String = shop.logoURL!
+                print(imageURL)
+                print(logoURL + "\n")
+                
+                let img = UIImage(named: "placeholder")
+                let iv = UIImageView(image: img)
+                iv.loadImageUsingCacheWithURLString(imageURL, placeHolder: img)
+            }
+            
+            DispatchQueue.main.async {
+                self.mainVC.setStateControls(state: .Ready)
+            }
+        }
+        catch
+        {
+            DispatchQueue.main.async {
+                self.mainVC.showAlertWith(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
 }
 
