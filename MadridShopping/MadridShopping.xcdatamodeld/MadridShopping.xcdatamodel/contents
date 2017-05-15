@@ -5,10 +5,10 @@
         <attribute name="descriptionEN" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptionES" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="logitude" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" attributeType="String" syncable="YES"/>
+        <attribute name="logitude" attributeType="String" syncable="YES"/>
         <attribute name="logoURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Shop" positionX="-63" positionY="-18" width="128" height="165"/>

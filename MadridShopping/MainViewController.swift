@@ -77,6 +77,19 @@ class MainViewController: UIViewController {
             btnShowShops.isHidden = true
         }
     }
+    
+    func showAlertWith(title: String, message: String, style: UIAlertControllerStyle = .alert)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        
+        let action = UIAlertAction(title: title, style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(action)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 // Operation is an abstract class, designed for subclassing. Each subclass represents a specific task.
@@ -117,7 +130,7 @@ class DownloadJSON: Operation
                         
                         // Begins next Operation
                         DispatchQueue.main.async {
-                            downloadQueue.addOperation(LoadData())
+                            downloadQueue.addOperation(LoadData(mainVC:self.mainVC))
                             
                             //--newcode now --//
                             self.mainVC.setStateControls(state: .Downloading)
@@ -148,7 +161,7 @@ class DownloadJSON: Operation
         else    // continue con second operation
         {
             DispatchQueue.main.async {
-                downloadQueue.addOperation(LoadData())
+                downloadQueue.addOperation(LoadData(mainVC:self.mainVC))
                 
                 //--newcode now --//
                 self.mainVC.setStateControls(state: .Downloading)
@@ -168,9 +181,35 @@ class DownloadJSON: Operation
 
 class LoadData: Operation
 {
+    // MARK: Properties
+    var mainVC: MainViewController
+    let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+    
+    // MARK: Init
+    init(mainVC: MainViewController)
+    {
+        self.mainVC = mainVC
+    }
+    
     override func main()
     {
-        getShopsFromJSON(localUrl: getLocalJSONPath())
+        let processing = JSONProcessing(url: getLocalJSONPath(), context: self.context)
+        
+        processing.getDataWith { (result) in
+            
+            switch result
+            {
+            case .Success(let data):
+                
+                processing.saveInCoreDataWith(array: data)
+                
+            case .Error(let message):   
+                
+                DispatchQueue.main.async {
+                    self.mainVC.showAlertWith(title: "Error", message: message)
+                }
+            }
+        }
     }
     
     func getLocalJSONPath() -> URL
@@ -179,33 +218,6 @@ class LoadData: Operation
         url.appendPathComponent(Global.Constant.jsonLocalName)
 
         return url
-    }
-    
-//    func getShopsFromJSON(localUrl: URL) -> [Shop] {
-    func getShopsFromJSON(localUrl: URL) {
-        
-//        do {
-//            // Pasamos la url a la función encargada de iniciar el parsing
-//            // Array de diccionarios de JSON
-//            let json = try loadJsonFileFrom(localUrl: localUrl)
-//            
-//            var books = [Book]()
-//            for dict in json {
-//                
-//                do {
-//                    let book = try decode(book: dict)
-//                    books.append(book)
-//                } catch {
-//                    print("Error al procesar \(dict)")
-//                }
-//            }
-//            
-//            return books;
-//            
-//        } catch {
-//            
-//            fatalError("Error while loading JSON file")
-//        }
     }
 }
 

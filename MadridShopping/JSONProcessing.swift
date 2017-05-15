@@ -1,111 +1,108 @@
-/**
- *   JSONProcessing.swift
- */
+//
+//  JSONProcessing.swift
+//  MadridShopping
+//
+//  Created by JJLZ on 5/12/17.
+//  Copyright © 2017 ESoft. All rights reserved.
+//
 
 import Foundation
 import UIKit
+import CoreData
 
-// MARK: Aliases
+// Here we create an enum with associated values and constrained to a generic type
+enum Result<T> {
+    case Success(T)
+    case Error(String)
+}
 
-typealias JSONObject        = AnyObject
-typealias JSONDictionary    = [String : JSONObject]
-typealias JSONArray         = [JSONDictionary]
-
-// MARK: - Loading
-
-func loadJsonFileFrom(localUrl: URL) throws -> JSONArray {
+class JSONProcessing: NSObject
+{
+    var localURL: URL
+    let context: NSManagedObjectContext
     
-    if let data = try? Data(contentsOf: localUrl),
-        let maybeArray: Any = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) {
-        
-        if let array = (maybeArray as? NSArray) as Array? { // Es un array de diccionarios
+    init(url: URL, context: NSManagedObjectContext)
+    {
+        self.localURL = url
+        self.context = context
+    }
+    
+    func getDataWith(completion: @escaping (Result<[[String: AnyObject]]>) -> Void)
+    {
+        URLSession.shared.dataTask(with: self.localURL) { (data, response, error) in
             
-            return (array as? JSONArray)!
+            guard error == nil else { return completion(.Error(error!.localizedDescription)) }
+            guard let data = data else { return completion(.Error(error?.localizedDescription ?? "There are no new Items to show"))
+            }
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
+                    guard let itemsJsonArray = json["result"] as? [[String: AnyObject]] else {
+                        return completion(.Error(error?.localizedDescription ?? "There are no new Items to show"))
+                    }
+                    DispatchQueue.main.async {
+                        completion(.Success(itemsJsonArray))
+                    }
+                }
+            } catch let error {
+                return completion(.Error(error.localizedDescription))
+            }
+            }.resume()
+    }
+    
+    // MARK: Core Data
+    
+    private func createShopEntityFrom(dictionary: [String: AnyObject]) -> NSManagedObject?
+    {
+        if let shopEntity = NSEntityDescription.insertNewObject(forEntityName: "Shop", into: self.context) as? Shop
+        {
+            shopEntity.logitude = dictionary["gps_lat"] as? String
+            shopEntity.latitude = dictionary["gps_lon"] as? String
+            shopEntity.name = dictionary["name"] as? String
+            shopEntity.logoURL = dictionary["logo_img"] as? String
+            shopEntity.imageURL = dictionary["img"] as? String
+            shopEntity.descriptionES = dictionary["description_es"] as? String
+            shopEntity.descriptionEN = dictionary["description_en"] as? String
+            shopEntity.address = dictionary["address"] as? String
             
-        } else if let dic = (maybeArray as? NSDictionary) as Dictionary? { // Es un diccionario
-            
-            // metemos el diccionario dentro de un array antes de regresarlo
-            let array: [JSONDictionary] = [dic as! JSONDictionary]
-            
-            return array
-        } else {    // formato de json incorrecto
-            
-            throw Global.Errors.wrongJSONFormat
+            return shopEntity
         }
         
-    } else {    // formato de json incorrecto
-        throw Global.Errors.wrongJSONFormat
+        return nil
+    }
+    
+    func saveInCoreDataWith(array: [[String: AnyObject]])
+    {
+        _ = array.map{self.createShopEntityFrom(dictionary: $0)}
+        do
+        {
+            try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
+        }
+        catch let error
+        {
+            print(error)
+        }
+    }
+    
+    func clearData(context: NSManagedObjectContext)
+    {
+        do {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Shop")
+            
+            do
+            {
+                let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
+                _ = objects.map{$0.map{context.delete($0)}}
+                CoreDataStack.sharedInstance.saveContext()
+            }
+            catch let error
+            {
+                print("Error Deleting: \(error)")
+            }
+        }
     }
 }
 
-// MARK: Decoding
 
-//func decode(book json: JSONDictionary) throws -> Book {
-//    
-//    guard let pdfUrlString = json["pdf_url"] as? String, let pdfUrl = URL(string: pdfUrlString) else {
-//        
-//        throw HackerBooksErrors.wrongURLFormatForJSONResource
-//    }
-//    
-//    guard let imageUrlString = json["image_url"] as? String, let imageUrl = URL(string: imageUrlString) else {
-//        
-//        throw HackerBooksErrors.wrongURLFormatForJSONResource
-//    }
-//    
-//    //-- Extraer autores --
-//    let authors: [String]
-//    if let authorsString = json["authors"] {
-//        
-//        authors = createAuthorsArrayFrom(authors: authorsString as! String)
-//    } else {
-//        
-//        throw HackerBooksErrors.wrongURLFormatForJSONResource
-//    }
-//    //--
-//    
-//    //-- Extraer tags --
-//    let tags: [Tag]
-//    if let stringTags = json["tags"] {
-//        
-//        tags = createTagArrayFrom(tagString: stringTags as! String)
-//    } else {
-//        
-//        throw HackerBooksErrors.wrongURLFormatForJSONResource
-//    }
-//    //--
-//    
-//    let title = json["title"] as! String
-//    
-//    // Creamos el book
-//    return Book(title: title, authors: authors, tags: tags, imageUrl: imageUrl, pdfUrl: pdfUrl)
-//}
-//
-//func createAuthorsArrayFrom(authors: String) -> [String] {
-//    
-//    let firstArray = authors.components(separatedBy: ",")
-//    var finalArray: [String] = []
-//    
-//    // Eliminar espacios en blanco a los extremos de cada author
-//    for author in firstArray {
-//        finalArray.append(author.trimmingCharacters(in: .whitespaces))
-//    }
-//    
-//    return finalArray
-//}
-//
-//func createTagArrayFrom(tagString: String) -> [Tag] {
-//    
-//    let firstArray = tagString.components(separatedBy: ",")
-//    var tagArray: [Tag] = []
-//    
-//    for tag in firstArray {
-//        
-//        // Eliminar espacios en blanco y crear Tag elements
-//        tagArray.append(Tag(name: tag.trimmingCharacters(in: .whitespaces)))
-//    }
-//    
-//    return tagArray
-//}
 
 
 

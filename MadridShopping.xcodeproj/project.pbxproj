@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8813B14F1EC92E2D00A34D9B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */; };
-		8813B1521EC9381C00A34D9B /* Shop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813B1501EC9381C00A34D9B /* Shop+CoreDataClass.swift */; };
-		8813B1531EC9381C00A34D9B /* Shop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813B1511EC9381C00A34D9B /* Shop+CoreDataProperties.swift */; };
 		8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8854C2591EC86688008006E1 /* JSONProcessing.swift */; };
+		88D216111EC9D38500238F6A /* Shop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2160F1EC9D38500238F6A /* Shop+CoreDataClass.swift */; };
+		88D216121EC9D38500238F6A /* Shop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D216101EC9D38500238F6A /* Shop+CoreDataProperties.swift */; };
 		88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412B1EC6789100F66DF9 /* AppDelegate.swift */; };
 		88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412D1EC6789100F66DF9 /* MainViewController.swift */; };
 		88FF41311EC6789100F66DF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88FF412F1EC6789100F66DF9 /* Main.storyboard */; };
@@ -24,9 +24,9 @@
 
 /* Begin PBXFileReference section */
 		8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		8813B1501EC9381C00A34D9B /* Shop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8813B1511EC9381C00A34D9B /* Shop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8854C2591EC86688008006E1 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
+		88D2160F1EC9D38500238F6A /* Shop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataClass.swift"; sourceTree = "<group>"; };
+		88D216101EC9D38500238F6A /* Shop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		88FF41281EC6789100F66DF9 /* MadridShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadridShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88FF412B1EC6789100F66DF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88FF412D1EC6789100F66DF9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -119,8 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */,
-				8813B1501EC9381C00A34D9B /* Shop+CoreDataClass.swift */,
-				8813B1511EC9381C00A34D9B /* Shop+CoreDataProperties.swift */,
+				88D2160F1EC9D38500238F6A /* Shop+CoreDataClass.swift */,
+				88D216101EC9D38500238F6A /* Shop+CoreDataProperties.swift */,
 				88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */,
 			);
 			name = Model;
@@ -210,11 +210,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				88FF41491EC6864700F66DF9 /* Downloader.swift in Sources */,
-				8813B1531EC9381C00A34D9B /* Shop+CoreDataProperties.swift in Sources */,
+				88D216121EC9D38500238F6A /* Shop+CoreDataProperties.swift in Sources */,
 				88FF41341EC6789100F66DF9 /* MadridShopping.xcdatamodeld in Sources */,
 				88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */,
 				88FF41461EC67BC000F66DF9 /* Reachability.swift in Sources */,
-				8813B1521EC9381C00A34D9B /* Shop+CoreDataClass.swift in Sources */,
+				88D216111EC9D38500238F6A /* Shop+CoreDataClass.swift in Sources */,
 				88FF414B1EC68BF300F66DF9 /* Global.swift in Sources */,
 				8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */,
 				88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */,

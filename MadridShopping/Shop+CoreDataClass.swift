@@ -2,7 +2,7 @@
 //  Shop+CoreDataClass.swift
 //  MadridShopping
 //
-//  Created by JJLZ on 5/14/17.
+//  Created by JJLZ on 5/15/17.
 //  Copyright © 2017 ESoft. All rights reserved.
 //
 
