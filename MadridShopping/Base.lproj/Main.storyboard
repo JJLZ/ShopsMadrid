@@ -69,11 +69,85 @@
                         <outlet property="btnShowShops" destination="i5h-DG-rB6" id="Oxp-81-BdH"/>
                         <outlet property="btnTryAgain" destination="Jqu-a8-OnQ" id="2tC-JW-2ll"/>
                         <outlet property="vIndicator" destination="vac-EF-CTX" id="lA3-Mb-EUr"/>
+                        <segue destination="vmU-E2-oxD" kind="show" identifier="showShopsVC" id="lmd-fx-BlM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="122.78860569715144"/>
+            <point key="canvasLocation" x="220" y="123"/>
+        </scene>
+        <!--Shops View Controller-->
+        <scene sceneID="kWn-Gd-4J7">
+            <objects>
+                <viewController id="vKU-Ar-qVL" customClass="ShopsViewController" customModule="MadridShopping" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jnu-WM-L27"/>
+                        <viewControllerLayoutGuide type="bottom" id="2mF-OQ-eVf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ibF-nx-bn4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="50t-ir-llq">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dAa-U7-LrF">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
+                                        <subviews>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" tag="8" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Bdn-hS-lrf">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
+                                            </mapView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UAd-6j-4mL">
+                                        <rect key="frame" x="0.0" y="301.5" width="375" height="301.5"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xze-NJ-W9v">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </tableView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="xze-NJ-W9v" secondAttribute="trailing" id="6Jy-8c-M2o"/>
+                                            <constraint firstItem="xze-NJ-W9v" firstAttribute="leading" secondItem="UAd-6j-4mL" secondAttribute="leading" id="K4P-lw-b50"/>
+                                            <constraint firstItem="xze-NJ-W9v" firstAttribute="top" secondItem="UAd-6j-4mL" secondAttribute="top" id="c0N-4d-aWS"/>
+                                            <constraint firstAttribute="bottom" secondItem="xze-NJ-W9v" secondAttribute="bottom" id="wd4-1a-GT9"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="50t-ir-llq" secondAttribute="trailing" id="Fur-z9-ydb"/>
+                            <constraint firstItem="50t-ir-llq" firstAttribute="leading" secondItem="ibF-nx-bn4" secondAttribute="leading" id="MIJ-Cu-xxe"/>
+                            <constraint firstItem="2mF-OQ-eVf" firstAttribute="top" secondItem="50t-ir-llq" secondAttribute="bottom" id="UEs-7g-wcp"/>
+                            <constraint firstItem="50t-ir-llq" firstAttribute="top" secondItem="jnu-WM-L27" secondAttribute="bottom" id="fsf-H0-bbi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pbH-E3-yDr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZBT-AA-eIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1780" y="123"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DY7-tv-iUQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vmU-E2-oxD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="54q-Hp-EHa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vKU-Ar-qVL" kind="relationship" relationship="rootViewController" id="Cbx-jS-KiM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W9Z-IA-ins" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="996" y="123"/>
         </scene>
     </scenes>
     <resources>

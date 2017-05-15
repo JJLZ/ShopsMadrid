@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8813B14F1EC92E2D00A34D9B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */; };
+		88503D081ECA142E00D1AE8E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88503D071ECA142E00D1AE8E /* MapKit.framework */; };
+		88503D0A1ECA146000D1AE8E /* ShopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88503D091ECA146000D1AE8E /* ShopsViewController.swift */; };
 		8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8854C2591EC86688008006E1 /* JSONProcessing.swift */; };
 		88D216111EC9D38500238F6A /* Shop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2160F1EC9D38500238F6A /* Shop+CoreDataClass.swift */; };
 		88D216121EC9D38500238F6A /* Shop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D216101EC9D38500238F6A /* Shop+CoreDataProperties.swift */; };
@@ -24,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		88503D071ECA142E00D1AE8E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		88503D091ECA146000D1AE8E /* ShopsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopsViewController.swift; sourceTree = "<group>"; };
 		8854C2591EC86688008006E1 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
 		88D2160F1EC9D38500238F6A /* Shop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataClass.swift"; sourceTree = "<group>"; };
 		88D216101EC9D38500238F6A /* Shop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -45,17 +49,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88503D081ECA142E00D1AE8E /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		88503D061ECA142E00D1AE8E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88503D071ECA142E00D1AE8E /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		88FF411F1EC6789100F66DF9 = {
 			isa = PBXGroup;
 			children = (
 				88FF412A1EC6789100F66DF9 /* MadridShopping */,
 				88FF41291EC6789100F66DF9 /* Products */,
+				88503D061ECA142E00D1AE8E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				88FF412D1EC6789100F66DF9 /* MainViewController.swift */,
+				88503D091ECA146000D1AE8E /* ShopsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -170,6 +185,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 69A85A3TC3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -209,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88503D0A1ECA146000D1AE8E /* ShopsViewController.swift in Sources */,
 				88FF41491EC6864700F66DF9 /* Downloader.swift in Sources */,
 				88D216121EC9D38500238F6A /* Shop+CoreDataProperties.swift in Sources */,
 				88FF41341EC6789100F66DF9 /* MadridShopping.xcdatamodeld in Sources */,

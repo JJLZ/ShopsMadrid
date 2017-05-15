@@ -90,6 +90,20 @@ class MainViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    // MARK: Navigation
+    
+    //--newcode now --//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+//    {
+//        super.prepare(for: segue, sender: sender)
+//        
+//        if segue.identifier == "showShopsVC"
+//        {
+//            let nav = segue.destination as! UINavigationController
+//            let shopsVC = nav.viewControllers.first as! ShopsViewController
+//        }
+//    }
 }
 
 // Operation is an abstract class, designed for subclassing. Each subclass represents a specific task.
@@ -202,6 +216,10 @@ class LoadData: Operation
             case .Success(let data):
                 
                 processing.saveInCoreDataWith(array: data)
+                
+                //--newcode show --
+                self.mainVC.performSegue(withIdentifier: "showShopsVC", sender: nil)
+                //--
                 
             case .Error(let message):   
                 

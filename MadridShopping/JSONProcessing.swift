@@ -81,6 +81,10 @@ class JSONProcessing: NSObject
         {
             print(error)
         }
+        
+        //--newcode now --
+        print("All data saved!")
+        //--
     }
     
     func clearData(context: NSManagedObjectContext)
