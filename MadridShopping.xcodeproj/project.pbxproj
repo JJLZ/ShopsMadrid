@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8813B14F1EC92E2D00A34D9B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */; };
+		8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8854C2591EC86688008006E1 /* JSONProcessing.swift */; };
 		88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412B1EC6789100F66DF9 /* AppDelegate.swift */; };
 		88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412D1EC6789100F66DF9 /* MainViewController.swift */; };
 		88FF41311EC6789100F66DF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88FF412F1EC6789100F66DF9 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		8854C2591EC86688008006E1 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
 		88FF41281EC6789100F66DF9 /* MadridShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadridShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88FF412B1EC6789100F66DF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88FF412D1EC6789100F66DF9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 		88FF41441EC67AD200F66DF9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8813B14E1EC92E2D00A34D9B /* CoreDataStack.swift */,
 				88FF41321EC6789100F66DF9 /* MadridShopping.xcdatamodeld */,
 			);
 			name = Model;
@@ -118,6 +123,7 @@
 		88FF41471EC67BC500F66DF9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8854C2591EC86688008006E1 /* JSONProcessing.swift */,
 				88FF41481EC6864700F66DF9 /* Downloader.swift */,
 				88FF41451EC67BC000F66DF9 /* Reachability.swift */,
 			);
@@ -202,7 +208,9 @@
 				88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */,
 				88FF41461EC67BC000F66DF9 /* Reachability.swift in Sources */,
 				88FF414B1EC68BF300F66DF9 /* Global.swift in Sources */,
+				8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */,
 				88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */,
+				8813B14F1EC92E2D00A34D9B /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +374,7 @@
 				88FF413F1EC6789100F66DF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

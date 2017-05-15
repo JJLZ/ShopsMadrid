@@ -168,8 +168,44 @@ class DownloadJSON: Operation
 
 class LoadData: Operation
 {
-    override func main() {
-        print("Es hora de la segunda operación")
+    override func main()
+    {
+        getShopsFromJSON(localUrl: getLocalJSONPath())
+    }
+    
+    func getLocalJSONPath() -> URL
+    {
+        var url = Downloader.applicationDocumentsDirectory()
+        url.appendPathComponent(Global.Constant.jsonLocalName)
+
+        return url
+    }
+    
+//    func getShopsFromJSON(localUrl: URL) -> [Shop] {
+    func getShopsFromJSON(localUrl: URL) {
+        
+//        do {
+//            // Pasamos la url a la función encargada de iniciar el parsing
+//            // Array de diccionarios de JSON
+//            let json = try loadJsonFileFrom(localUrl: localUrl)
+//            
+//            var books = [Book]()
+//            for dict in json {
+//                
+//                do {
+//                    let book = try decode(book: dict)
+//                    books.append(book)
+//                } catch {
+//                    print("Error al procesar \(dict)")
+//                }
+//            }
+//            
+//            return books;
+//            
+//        } catch {
+//            
+//            fatalError("Error while loading JSON file")
+//        }
     }
 }
 

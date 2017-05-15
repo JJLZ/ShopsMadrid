@@ -27,6 +27,15 @@ class Global
     {
         static let jsonRemoteURL = "http://madrid-shops.com/json_new/getShops.php"
     }
+    
+    enum Errors: Error {
+        
+        case jsonParsingError
+        case wrongURLFormatForJSONResource
+        case resourcePointedByURLNotReachable
+        case wrongJSONFormat
+        case errorSavingJSON
+    }
 }
 
 
