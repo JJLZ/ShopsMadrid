@@ -16,6 +16,7 @@ class Global
     struct UserDefaults
     {
         static let jsonDownloaded = "jsonDocumentIsAlreadyDownloaded"
+        static let allDataLoaded = "allDataLoaded"
     }
     
     struct ErrorMessage

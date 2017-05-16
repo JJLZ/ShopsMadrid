@@ -21,6 +21,7 @@ enum MainVCState {
     case Downloading
     case Ready
     case NoInternet
+    case Error
 }
 
 class MainViewController: UIViewController {
@@ -29,6 +30,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var vIndicator: UIActivityIndicatorView!
     @IBOutlet weak var btnTryAgain: UIButton!
     @IBOutlet weak var btnShowShops: UIButton!
+    @IBOutlet weak var lblState: UILabel!
     
     // MARK: Properties
     let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -38,12 +40,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        // Initial state
-        setStateControls(state: .Downloading)
-        
-        // Download JSON file
-        downloadQueue.addOperation(DownloadJSON(mainVC: self))
+     
+        initialSetup()
     }
 
     override func didReceiveMemoryWarning()
@@ -54,11 +52,36 @@ class MainViewController: UIViewController {
     // MARK: Methods
 
     @IBAction func tryLoadDataAgain(_ sender: Any) {
-        
-        viewDidLoad()
+
+        initialSetup()
     }
     
-    //--newcode now --//
+    func initialSetup()
+    {
+        // Check if I already have all data downloaded
+        let defaults = UserDefaults.standard
+        let blnDataReady: Bool = defaults.bool(forKey: Global.UserDefaults.allDataLoaded)
+        
+        if blnDataReady
+        {
+            // Initial state
+            setStateControls(state: .Ready)
+        }
+        else
+        {
+            // Initial state
+            setStateControls(state: .Downloading)
+            
+            // Download JSON file
+            downloadQueue.addOperation(DownloadJSON(mainVC: self))
+        }
+    }
+    
+    func updateStateLabelWithMesssage(_ message: String = "")
+    {
+        lblState.text = message
+    }
+
     func setStateControls(state: MainVCState)
     {
         switch state
@@ -71,10 +94,17 @@ class MainViewController: UIViewController {
             vIndicator.stopAnimating()
             btnTryAgain.isHidden = true
             btnShowShops.isHidden = false
+            updateStateLabelWithMesssage("Ready to use!")
         case .NoInternet:
             vIndicator.stopAnimating()
             btnTryAgain.isHidden = false
             btnShowShops.isHidden = true
+            updateStateLabelWithMesssage("Internet not detected!")
+        case .Error:
+            vIndicator.stopAnimating()
+            btnTryAgain.isHidden = false
+            btnShowShops.isHidden = false
+            updateStateLabelWithMesssage("Error try again!")
         }
     }
     
@@ -116,9 +146,9 @@ class DownloadJSON: Operation
         // Is json file in local?
         if !isJSONInLocal() // json is not in local
         {
-            //--newcode now --
-            print("Init Operation: DownloadJSON")
-            //--
+            DispatchQueue.main.async {
+                self.mainVC.updateStateLabelWithMesssage("Downloading JSON")
+            }
             
             // Download json
             // Check
@@ -140,9 +170,8 @@ class DownloadJSON: Operation
                         
                         // Begins next Operation
                         DispatchQueue.main.async {
-                            downloadQueue.addOperation(LoadData(mainVC:self.mainVC))
                             
-                            //--newcode now --//
+                            downloadQueue.addOperation(DecodeJSON(mainVC:self.mainVC))
                             self.mainVC.setStateControls(state: .Downloading)
                         }
                     })
@@ -162,8 +191,6 @@ class DownloadJSON: Operation
                 
                 DispatchQueue.main.async {
                     self.mainVC.present(alertController, animated: true, completion: {})
-                    
-                    //--newcode now --//
                     self.mainVC.setStateControls(state: .NoInternet)
                 }
             }
@@ -171,9 +198,8 @@ class DownloadJSON: Operation
         else    // continue con second operation
         {
             DispatchQueue.main.async {
-                downloadQueue.addOperation(LoadData(mainVC:self.mainVC))
                 
-                //--newcode now --//
+                downloadQueue.addOperation(DecodeJSON(mainVC:self.mainVC))
                 self.mainVC.setStateControls(state: .Downloading)
             }
         }
@@ -189,7 +215,7 @@ class DownloadJSON: Operation
     }
 }
 
-class LoadData: Operation
+class DecodeJSON: Operation
 {
     // MARK: Properties
     var mainVC: MainViewController
@@ -203,9 +229,9 @@ class LoadData: Operation
     
     override func main()
     {
-        //--newcode now --
-        print("Init Operation: LoadData")
-        //--
+        DispatchQueue.main.async {
+            self.mainVC.updateStateLabelWithMesssage("Decoding JSON")
+        }
         
         let processing = JSONProcessing(url: getLocalJSONPath(), context: self.context)
         
@@ -215,12 +241,12 @@ class LoadData: Operation
             {
             case .Success(let data):
                 
-                //--newcode falta completion? --//
-                processing.saveInCoreDataWith(array: data)
+                processing.saveInCoreDataWith(array: data, completionHandler: {_ in 
                 
-                // Continue with cache of images
-                self.mainVC.setStateControls(state: .Downloading)
-                downloadQueue.addOperation(CacheImages(mainVC: self.mainVC))
+                    // Continue with cache of images
+                    self.mainVC.setStateControls(state: .Downloading)
+                    downloadQueue.addOperation(CacheImages(mainVC: self.mainVC))
+                })
                 
             case .Error(let message):   
                 
@@ -255,10 +281,10 @@ class CacheImages: Operation
     
     override func main()
     {
-        //--newcode now --
-        print("Init Operation: CacheImages")
-        //--
-
+        DispatchQueue.main.async {
+            self.mainVC.updateStateLabelWithMesssage("Downloading images")
+        }
+        
         let request = NSFetchRequest<NSFetchRequestResult>()
         let entityDesc = NSEntityDescription.entity(forEntityName: "Shop", in: context)
         request.entity = entityDesc
@@ -266,22 +292,23 @@ class CacheImages: Operation
         {
             let results = try context.fetch(request)
             
+            let imageCache:ImageCache = ImageCache.sharedInstance
+            let group = DispatchGroup()
+            
             for item in results {
                 
                 let shop = item as! Shop
                 let imageURL: String = shop.imageURL!
                 let logoURL: String = shop.logoURL!
-                print(imageURL)
-                print(logoURL + "\n")
                 
-                let img = UIImage(named: "placeholder")
-                let iv = UIImageView(image: img)
-                iv.loadImageUsingCacheWithURLString(imageURL, placeHolder: img)
+                imageCache.cacheImageWithURLString(imageURL, group: group)
+                imageCache.cacheImageWithURLString(logoURL, group: group)
             }
-            
-            DispatchQueue.main.async {
-                self.mainVC.setStateControls(state: .Ready)
-            }
+                        
+            group.notify(queue: DispatchQueue.main, execute: {
+                
+                downloadQueue.addOperation(SavingImages(mainVC: self.mainVC))
+            })
         }
         catch
         {
@@ -292,10 +319,84 @@ class CacheImages: Operation
     }
 }
 
-
-
-
-
+class SavingImages: Operation
+{
+    // MARK: Properties
+    var mainVC: MainViewController
+    var context: NSManagedObjectContext
+    
+    // MARK: Init
+    init(mainVC: MainViewController)
+    {
+        self.mainVC = mainVC
+        self.context = mainVC.context
+    }
+    
+    override func main()
+    {
+        DispatchQueue.main.async {
+            self.mainVC.updateStateLabelWithMesssage("Saving images")
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        let entityDesc = NSEntityDescription.entity(forEntityName: "Shop", in: context)
+        request.entity = entityDesc
+        do
+        {
+            let results = try context.fetch(request)
+            
+            let imageCache:ImageCache = ImageCache.sharedInstance
+            
+            for item in results {
+                
+                let shop = item as! Shop
+                let imageURL: String = shop.imageURL!
+                let logoURL: String = shop.logoURL!
+                
+                let logo: UIImage = imageCache.imageFromCacheWithURLString(logoURL)
+                let image: UIImage = imageCache.imageFromCacheWithURLString(imageURL)
+                
+                let logoData: Data = UIImageJPEGRepresentation(logo, 0.0)!
+                let imageData: Data = UIImageJPEGRepresentation(image, 0.0)!
+                
+                shop.setValue(logoData, forKey: "logoData")
+                shop.setValue(imageData, forKey: "imageData")
+                
+                do {
+                    try context.save()
+                } catch {
+                    DispatchQueue.main.async {
+                        self.mainVC.showAlertWith(title: "Error saving images", message: error.localizedDescription)
+                        self.mainVC.setStateControls(state: .Error)
+                        imageCache.cache.removeAllObjects()
+                        return
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                
+                imageCache.cache.removeAllObjects()
+                
+                // update flag
+                let defaults = UserDefaults.standard
+                defaults.set(true, forKey: Global.UserDefaults.allDataLoaded)
+                defaults.synchronize()
+                
+                self.mainVC.setStateControls(state: .Ready)
+            }
+        }
+        catch
+        {
+            DispatchQueue.main.async {
+                let imageCache:ImageCache = ImageCache.sharedInstance
+                imageCache.cache.removeAllObjects()
+                
+                self.mainVC.showAlertWith(title: "Error saving images", message: error.localizedDescription)
+            }
+        }
+    }
+}
 
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,10 +22,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qQ7-fb-y9w">
-                                <rect key="frame" x="67" y="153.5" width="240" height="361"/>
+                                <rect key="frame" x="67" y="141.5" width="240" height="385"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMo-r8-WUw" userLabel="lblState">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="17.5"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jqu-a8-OnQ" userLabel="btnTryAgain">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
+                                        <rect key="frame" x="0.0" y="25.5" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                         <state key="normal" title="Try Again"/>
                                         <connections>
@@ -33,24 +39,24 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shop" translatesAutoresizingMaskIntoConstraints="NO" id="81h-jc-XcG">
-                                        <rect key="frame" x="0.0" y="38" width="240" height="240"/>
+                                        <rect key="frame" x="0.0" y="63.5" width="240" height="240"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="240" id="BPz-rc-lNH"/>
                                             <constraint firstAttribute="width" constant="240" id="mqd-GY-bKJ"/>
                                         </constraints>
                                     </imageView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vac-EF-CTX" userLabel="vIndicator">
-                                        <rect key="frame" x="0.0" y="286" width="240" height="37"/>
+                                        <rect key="frame" x="0.0" y="311.5" width="240" height="37"/>
                                         <color key="color" cocoaTouchSystemColor="darkTextColor"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i5h-DG-rB6" userLabel="btnShowShops">
-                                        <rect key="frame" x="0.0" y="331" width="240" height="30"/>
+                                        <rect key="frame" x="0.0" y="356.5" width="240" height="28.5"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Show Madrid Shops">
                                                     <attributes>
-                                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
+                                                        <color key="NSColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="14" name="Menlo-Bold"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -71,6 +77,7 @@
                     <connections>
                         <outlet property="btnShowShops" destination="i5h-DG-rB6" id="Oxp-81-BdH"/>
                         <outlet property="btnTryAgain" destination="Jqu-a8-OnQ" id="2tC-JW-2ll"/>
+                        <outlet property="lblState" destination="QMo-r8-WUw" id="zj2-4q-bsJ"/>
                         <outlet property="vIndicator" destination="vac-EF-CTX" id="lA3-Mb-EUr"/>
                         <segue destination="vKU-Ar-qVL" kind="show" identifier="showShopsVC" id="Cl7-wB-smS"/>
                     </connections>
@@ -111,17 +118,46 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SSg-o4-9Hg">
                                         <rect key="frame" x="0.0" y="323.5" width="375" height="323.5"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iVs-qH-T9m">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iVs-qH-T9m">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="323.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellShop" id="mTu-ed-yCE">
-                                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellShop" rowHeight="117" id="hNN-5l-C1x" customClass="ShopTableViewCell" customModule="MadridShopping" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="117"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mTu-ed-yCE" id="enB-na-oda">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hNN-5l-C1x" id="eFh-s7-YSp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="116.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5y5-W4-tpd" userLabel="ivImage">
+                                                                    <rect key="frame" x="8" y="8" width="120" height="100"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="100" id="2oQ-5m-oy8"/>
+                                                                        <constraint firstAttribute="width" constant="120" id="bWc-U0-cZE"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZc-K9-1V1" userLabel="lblName">
+                                                                    <rect key="frame" x="136" y="8" width="231" height="42"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="42" id="9th-2A-MN6"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="5y5-W4-tpd" firstAttribute="leading" secondItem="eFh-s7-YSp" secondAttribute="leading" constant="8" id="0Dp-3g-9MU"/>
+                                                                <constraint firstAttribute="trailing" secondItem="fZc-K9-1V1" secondAttribute="trailing" constant="8" id="6j5-wz-fX5"/>
+                                                                <constraint firstItem="fZc-K9-1V1" firstAttribute="top" secondItem="eFh-s7-YSp" secondAttribute="top" constant="8" id="djX-w9-8ZN"/>
+                                                                <constraint firstItem="fZc-K9-1V1" firstAttribute="leading" secondItem="5y5-W4-tpd" secondAttribute="trailing" constant="8" id="h9d-sf-L7i"/>
+                                                                <constraint firstItem="5y5-W4-tpd" firstAttribute="top" secondItem="eFh-s7-YSp" secondAttribute="top" constant="8" id="iR5-U3-cwQ"/>
+                                                            </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="ivImage" destination="5y5-W4-tpd" id="mOP-fl-iJv"/>
+                                                            <outlet property="lblName" destination="fZc-K9-1V1" id="tZi-2x-dqi"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                                 <connections>

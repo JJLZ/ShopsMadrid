@@ -69,8 +69,10 @@ class JSONProcessing: NSObject
         
         return nil
     }
+        
+    typealias CompletionHandler = (_ success:Bool) -> Void
     
-    func saveInCoreDataWith(array: [[String: AnyObject]])
+    func saveInCoreDataWith(array: [[String: AnyObject]], completionHandler: CompletionHandler)
     {
         _ = array.map{self.createShopEntityFrom(dictionary: $0)}
         do
@@ -79,8 +81,12 @@ class JSONProcessing: NSObject
         }
         catch let error
         {
-            print(error)
-        }        
+            print(error.localizedDescription)
+            completionHandler(false)
+            return
+        }
+        
+        completionHandler(true)
     }
     
     func clearData(context: NSManagedObjectContext)

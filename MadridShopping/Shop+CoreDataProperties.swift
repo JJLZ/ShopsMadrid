@@ -2,7 +2,7 @@
 //  Shop+CoreDataProperties.swift
 //  MadridShopping
 //
-//  Created by JJLZ on 5/15/17.
+//  Created by JJLZ on 5/17/17.
 //  Copyright © 2017 ESoft. All rights reserved.
 //
 
@@ -24,5 +24,7 @@ extension Shop {
     @NSManaged public var logitude: String?
     @NSManaged public var logoURL: String?
     @NSManaged public var name: String?
+    @NSManaged public var logoData: NSData?
+    @NSManaged public var imageData: NSData?
 
 }

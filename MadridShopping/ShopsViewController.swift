@@ -63,10 +63,11 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath) as! ShopTableViewCell
         
         let shop: Shop = self.frc.object(at: indexPath)
-        cell.textLabel?.text = shop.name
+        cell.lblName.text = shop.name
+        cell.ivImage.image = UIImage(data: shop.logoData! as Data)
 
         return cell
     }
