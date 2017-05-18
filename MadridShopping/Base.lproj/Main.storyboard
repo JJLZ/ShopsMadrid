@@ -104,8 +104,11 @@
                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nTa-Ds-xJo">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="323.5"/>
                                         <subviews>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RQ7-Nv-krs">
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RQ7-Nv-krs">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="323.5"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="vKU-Ar-qVL" id="jQL-D7-2Gb"/>
+                                                </connections>
                                             </mapView>
                                         </subviews>
                                         <constraints>
@@ -186,6 +189,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="pbH-E3-yDr"/>
                     <connections>
+                        <outlet property="mapView" destination="RQ7-Nv-krs" id="dvf-1s-ggL"/>
                         <outlet property="tableView" destination="iVs-qH-T9m" id="8L1-lz-6a6"/>
                     </connections>
                 </viewController>

@@ -8,15 +8,20 @@
 
 import UIKit
 import CoreData
+import MapKit
 
 class ShopsViewController: UIViewController, UITableViewDataSource {
     
     // MARK: IBOutlet's
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var mapView: MKMapView!
     
     // MARK: Properties
     private let cellID = "cellShop"
     let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+
+    let regionRadius: CLLocationDistance = 1000
+    var mapPins: [MapPin] = [MapPin]()
     
     lazy var frc: NSFetchedResultsController<Shop> = {
         let req: NSFetchRequest<Shop> = Shop.fetchRequest()
@@ -27,7 +32,6 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
             fetchRequest:req,
             managedObjectContext:self.context,
             sectionNameKeyPath:nil, cacheName:nil)
-        afrc.delegate = self
         do {
             try afrc.performFetch()
         } catch {
@@ -35,14 +39,26 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
         }
         return afrc
     }()
-
+    
     // MARK: ViewController Life Cycle
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-    }
+        
+        //-- Map View Setup --
+        mapView.delegate = self
+        
+        // set initial location in Madrid
+        let initialLocation = CLLocation(latitude: 40.4165000, longitude: -3.7025600)
+        centerMapOnLocation(initialLocation)
 
+        // Show shops in the map view
+        self.mapPins = createMapPins(frc: self.frc)
+        mapView.addAnnotations(mapPins)
+        //--
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -68,40 +84,17 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
         let shop: Shop = self.frc.object(at: indexPath)
         cell.lblName.text = shop.name
         cell.ivImage.image = UIImage(data: shop.logoData! as Data)
-
+        
         return cell
     }
-}
-
-extension ShopsViewController: NSFetchedResultsControllerDelegate
-{
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
-    {
-        switch type
-        {
-        case .insert:
-            self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
-            
-        case .delete:
-            self.tableView.deleteRows(at: [indexPath!], with: .automatic)
-            
-        default:
-            break
-        }
-    }
+    // MARK: MapKit
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+    func centerMapOnLocation(_ location: CLLocation)
     {
-        self.tableView.endUpdates()
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
-    {
-        tableView.beginUpdates()
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
 }
-
-
 
 
 

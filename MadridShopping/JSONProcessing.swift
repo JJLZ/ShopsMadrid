@@ -55,8 +55,8 @@ class JSONProcessing: NSObject
     {
         if let shopEntity = NSEntityDescription.insertNewObject(forEntityName: "Shop", into: self.context) as? Shop
         {
-            shopEntity.logitude = dictionary["gps_lat"] as? String
-            shopEntity.latitude = dictionary["gps_lon"] as? String
+            shopEntity.logitude = dictionary["gps_lon"] as? String
+            shopEntity.latitude = dictionary["gps_lat"] as? String
             shopEntity.name = dictionary["name"] as? String
             shopEntity.logoURL = dictionary["logo_img"] as? String
             shopEntity.imageURL = dictionary["img"] as? String

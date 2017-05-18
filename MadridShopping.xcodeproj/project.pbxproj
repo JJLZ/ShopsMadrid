@@ -15,6 +15,7 @@
 		8875144C1ECA829B00424FA9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875144B1ECA829B00424FA9 /* ImageCache.swift */; };
 		888A4DF61ECD0014003E4AC9 /* Shop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A4DF41ECD0014003E4AC9 /* Shop+CoreDataClass.swift */; };
 		888A4DF71ECD0014003E4AC9 /* Shop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A4DF51ECD0014003E4AC9 /* Shop+CoreDataProperties.swift */; };
+		888A4DFB1ECD2F90003E4AC9 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A4DFA1ECD2F90003E4AC9 /* MapPin.swift */; };
 		88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412B1EC6789100F66DF9 /* AppDelegate.swift */; };
 		88FF412E1EC6789100F66DF9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FF412D1EC6789100F66DF9 /* MainViewController.swift */; };
 		88FF41311EC6789100F66DF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88FF412F1EC6789100F66DF9 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		8875144B1ECA829B00424FA9 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		888A4DF41ECD0014003E4AC9 /* Shop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataClass.swift"; sourceTree = "<group>"; };
 		888A4DF51ECD0014003E4AC9 /* Shop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		888A4DFA1ECD2F90003E4AC9 /* MapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		88FF41281EC6789100F66DF9 /* MadridShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadridShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88FF412B1EC6789100F66DF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88FF412D1EC6789100F66DF9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				88FF412D1EC6789100F66DF9 /* MainViewController.swift */,
 				88503D091ECA146000D1AE8E /* ShopsViewController.swift */,
 				88300A8A1ECCBA29000DE8CE /* ShopTableViewCell.swift */,
+				888A4DFA1ECD2F90003E4AC9 /* MapPin.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			files = (
 				8875144C1ECA829B00424FA9 /* ImageCache.swift in Sources */,
 				888A4DF61ECD0014003E4AC9 /* Shop+CoreDataClass.swift in Sources */,
+				888A4DFB1ECD2F90003E4AC9 /* MapPin.swift in Sources */,
 				88503D0A1ECA146000D1AE8E /* ShopsViewController.swift in Sources */,
 				88FF41491EC6864700F66DF9 /* Downloader.swift in Sources */,
 				88300A8B1ECCBA29000DE8CE /* ShopTableViewCell.swift in Sources */,
