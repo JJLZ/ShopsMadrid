@@ -29,13 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //--newcode now --//
-    func getLocalJSONPath() -> URL
-    {
-        var url = Downloader.applicationDocumentsDirectory()
-        url.appendPathComponent(Global.Constant.jsonLocalName)
-        
-        return url
-    }
+//    func getLocalJSONPath() -> URL
+//    {
+//        var url = Downloader.applicationDocumentsDirectory()
+//        url.appendPathComponent(Global.Constant.jsonLocalName)
+//        
+//        return url
+//    }
     
     func applicationWillTerminate(_ application: UIApplication)
     {

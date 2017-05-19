@@ -10,14 +10,14 @@ import UIKit
 import CoreData
 import MapKit
 
-class ShopsViewController: UIViewController, UITableViewDataSource {
+class ShopsViewController: UIViewController {
     
     // MARK: IBOutlet's
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: Properties
-    private let cellID = "cellShop"
+    let cellID = "cellShop"
     let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
 
     let regionRadius: CLLocationDistance = 1000
@@ -39,6 +39,8 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
         }
         return afrc
     }()
+    
+    var selectedShop:Shop? = nil
     
     // MARK: ViewController Life Cycle
     
@@ -64,8 +66,28 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: UITableViewDataSource
+    // MARK: Navigation
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showDetail"
+        {
+            let detailVC = segue.destination as! DetailViewController
+            detailVC.shop = self.selectedShop
+        }
+    }
+    
+    // MARK: MapKit
+    
+    func centerMapOnLocation(_ location: CLLocation)
+    {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+}
+
+extension ShopsViewController: UITableViewDataSource
+{
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return self.frc.sections!.count
@@ -87,16 +109,16 @@ class ShopsViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
-    // MARK: MapKit
-    
-    func centerMapOnLocation(_ location: CLLocation)
-    {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
 }
 
-
+extension ShopsViewController: UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.selectedShop = self.frc.object(at: indexPath)
+        performSegue(withIdentifier: "showDetail", sender: self)
+    }
+}
 
 
 

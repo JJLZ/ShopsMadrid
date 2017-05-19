@@ -12,6 +12,7 @@
 		88503D081ECA142E00D1AE8E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88503D071ECA142E00D1AE8E /* MapKit.framework */; };
 		88503D0A1ECA146000D1AE8E /* ShopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88503D091ECA146000D1AE8E /* ShopsViewController.swift */; };
 		8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8854C2591EC86688008006E1 /* JSONProcessing.swift */; };
+		886F8D311ECF49AB00ED4BEA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886F8D301ECF49AB00ED4BEA /* DetailViewController.swift */; };
 		8875144C1ECA829B00424FA9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8875144B1ECA829B00424FA9 /* ImageCache.swift */; };
 		888A4DF61ECD0014003E4AC9 /* Shop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A4DF41ECD0014003E4AC9 /* Shop+CoreDataClass.swift */; };
 		888A4DF71ECD0014003E4AC9 /* Shop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A4DF51ECD0014003E4AC9 /* Shop+CoreDataProperties.swift */; };
@@ -33,6 +34,7 @@
 		88503D071ECA142E00D1AE8E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		88503D091ECA146000D1AE8E /* ShopsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopsViewController.swift; sourceTree = "<group>"; };
 		8854C2591EC86688008006E1 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
+		886F8D301ECF49AB00ED4BEA /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8875144B1ECA829B00424FA9 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		888A4DF41ECD0014003E4AC9 /* Shop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataClass.swift"; sourceTree = "<group>"; };
 		888A4DF51ECD0014003E4AC9 /* Shop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shop+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -68,6 +70,16 @@
 				88503D071ECA142E00D1AE8E /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		886F8D321ECF507E00ED4BEA /* ShopViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88503D091ECA146000D1AE8E /* ShopsViewController.swift */,
+				88300A8A1ECCBA29000DE8CE /* ShopTableViewCell.swift */,
+				888A4DFA1ECD2F90003E4AC9 /* MapPin.swift */,
+			);
+			name = ShopViewController;
 			sourceTree = "<group>";
 		};
 		88FF411F1EC6789100F66DF9 = {
@@ -113,9 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				88FF412D1EC6789100F66DF9 /* MainViewController.swift */,
-				88503D091ECA146000D1AE8E /* ShopsViewController.swift */,
-				88300A8A1ECCBA29000DE8CE /* ShopTableViewCell.swift */,
-				888A4DFA1ECD2F90003E4AC9 /* MapPin.swift */,
+				886F8D321ECF507E00ED4BEA /* ShopViewController */,
+				886F8D301ECF49AB00ED4BEA /* DetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -250,6 +261,7 @@
 				88FF414B1EC68BF300F66DF9 /* Global.swift in Sources */,
 				8854C25A1EC86688008006E1 /* JSONProcessing.swift in Sources */,
 				88FF412C1EC6789100F66DF9 /* AppDelegate.swift in Sources */,
+				886F8D311ECF49AB00ED4BEA /* DetailViewController.swift in Sources */,
 				888A4DF71ECD0014003E4AC9 /* Shop+CoreDataProperties.swift in Sources */,
 				8813B14F1EC92E2D00A34D9B /* CoreDataStack.swift in Sources */,
 			);

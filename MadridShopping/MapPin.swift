@@ -37,7 +37,6 @@ func createMapPins(frc: NSFetchedResultsController<Shop>) -> [MapPin]
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         
         let pin = MapPin(coordinate: coordinate, title: shop.name)
-//        let pin = MapPin(coordinate: CLLocationCoordinate2D(latitude: 40.4165000, longitude: -3.7025600), title: "test")
         
         pins.append(pin)
     }
@@ -63,7 +62,16 @@ extension ShopsViewController: MKMapViewDelegate
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+                
+                //--newcode map --
+//                // Add image to left callout
+                let ivLogo = UIImageView(image: UIImage(named: "shop.png"))
+                ivLogo.frame.size.height = 100.0
+                ivLogo.frame.size.width = 100.0
+                view.leftCalloutAccessoryView = ivLogo
+                
+                view.frame.size.height = 150.0
+                //--                
             }
             
             view.pinTintColor = UIColor.red
