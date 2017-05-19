@@ -26,14 +26,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //-- Show info --
-        if let s = shop
-        {
-            lblName.text = s.name
-            lblDescription.text = s.descriptionES
-            lblAddress.text = "Dirección: " + s.address!
-            ivShop.image = UIImage(data: s.imageData! as Data)
-        }
+        showShopInfo()
         
         //-- Map Setup --//
         setShopLocation(shop: shop!)
@@ -49,6 +42,32 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    // MARK: Methods
+    
+    func showShopInfo()
+    {
+        let strLanguajeCode = Locale.current.languageCode
+        
+        if let s = shop
+        {
+            lblName.text = s.name
+            ivShop.image = UIImage(data: s.imageData! as Data)
+            
+            if strLanguajeCode == "es"
+            {
+                lblDescription.text = s.descriptionES
+                btnClose.setTitle("Cerrar",for: .normal)
+                lblAddress.text = "Dirección: " + s.address!
+            }
+            else
+            {
+                lblDescription.text = s.descriptionEN
+                btnClose.setTitle("Close",for: .normal)
+                lblAddress.text = "Address: " + s.address!
+            }
+        }
     }
     
     // MARK: MapView Methods
