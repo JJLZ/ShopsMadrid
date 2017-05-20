@@ -82,7 +82,7 @@ class DetailViewController: UIViewController {
         let lon = shop.logitude!.trimmingCharacters(in: .whitespaces).toDouble()
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         
-        pin = MapPin(coordinate: coordinate, title: shop.name)
+        pin = MapPin(coordinate: coordinate, title: shop.name, indexPath: IndexPath(row: 0, section: 0))
         
         return pin
     }

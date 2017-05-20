@@ -15,29 +15,34 @@ class MapPin: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
+    var indexPath: IndexPath
     
-    init(coordinate: CLLocationCoordinate2D, title: String?)
+    init(coordinate: CLLocationCoordinate2D, title: String?, indexPath: IndexPath)
     {
         self.coordinate = coordinate
         self.title = title
+        self.indexPath = indexPath
     }
 }
 
 func createMapPins(frc: NSFetchedResultsController<Shop>) -> [MapPin]
 {
     var pins = [MapPin]()
+    let total = frc.fetchedObjects?.count
     
-    for shop in frc.fetchedObjects! {
+    for index in 0..<total!
+    {
+        let indexPath = IndexPath(row: index, section: 0)
+        
+        let shop: Shop = frc.object(at: indexPath)
         
         guard shop.latitude != nil, shop.logitude != nil else { continue }
         
-        // Get coordinate
         let lat = shop.latitude!.trimmingCharacters(in: .whitespaces).toDouble()
         let lon = shop.logitude!.trimmingCharacters(in: .whitespaces).toDouble()
         let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         
-        let pin = MapPin(coordinate: coordinate, title: shop.name)
-        
+        let pin = MapPin(coordinate: coordinate, title: shop.name, indexPath: indexPath)
         pins.append(pin)
     }
     
@@ -62,17 +67,14 @@ extension ShopsViewController: MKMapViewDelegate
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
-                
-                //--newcode map --
-//                // Add image to left callout
-                let ivLogo = UIImageView(image: UIImage(named: "shop.png"))
-                ivLogo.frame.size.height = 100.0
-                ivLogo.frame.size.width = 100.0
-                view.leftCalloutAccessoryView = ivLogo
-                
-                view.frame.size.height = 150.0
-                //--                
+                view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
             }
+            
+            //-- Imagen para el Callout --
+            let shop: Shop = self.frc.object(at: annotation.indexPath)
+            let ivLogo = UIImageView(image: UIImage(data: shop.logoData! as Data))
+            view.detailCalloutAccessoryView = ivLogo
+            //--
             
             view.pinTintColor = UIColor.red
             
@@ -84,9 +86,9 @@ extension ShopsViewController: MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)
     {
-        //        let location = view.annotation as! Artwork
-        //        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-        //        location.mapItem().openInMaps(launchOptions: launchOptions)
+        let shop = view.annotation as! MapPin
+        self.selectedShop = frc.object(at: shop.indexPath)
+        performSegue(withIdentifier: "showDetail", sender: self)
     }
 }
 
