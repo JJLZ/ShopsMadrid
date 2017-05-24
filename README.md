@@ -25,3 +25,4 @@ The objective is for the student to put into practice the knowledge acquired dur
 * swift 3.1
 * Frameworks used: Core Data, MapKit
 * Git
+* Sketch v44.1
