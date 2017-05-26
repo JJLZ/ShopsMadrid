@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 class DetailViewController: UIViewController {
     
@@ -16,7 +15,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var lblAddress: UILabel!
     @IBOutlet weak var ivShop: UIImageView!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: UIImageView!
     @IBOutlet weak var btnClose: UIButton!
     
     // MARK: Properties
@@ -27,16 +26,6 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         showShopInfo()
-        
-        //-- Map Setup --//
-        setShopLocation(shop: shop!)
-        
-        mapView.delegate = self
-        if let pin = createMapPin(shop: shop!)
-        {
-            mapView.addAnnotation(pin)
-        }
-        //--
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,6 +43,7 @@ class DetailViewController: UIViewController {
         {
             lblName.text = s.name
             ivShop.image = UIImage(data: s.imageData! as Data)
+            mapView.image = UIImage(data: s.mapData! as Data)
             
             if strLanguajeCode == "es"
             {
@@ -70,37 +60,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    // MARK: MapView Methods
-    
-    func createMapPin(shop: Shop) -> MapPin?
-    {
-        var pin: MapPin? = nil
-        
-        guard shop.latitude != nil, shop.logitude != nil else { return pin }
-        
-        let lat = shop.latitude!.trimmingCharacters(in: .whitespaces).toDouble()
-        let lon = shop.logitude!.trimmingCharacters(in: .whitespaces).toDouble()
-        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        
-        pin = MapPin(coordinate: coordinate, title: shop.name, indexPath: IndexPath(row: 0, section: 0))
-        
-        return pin
-    }
-    
-    func setShopLocation(shop: Shop)
-    {
-        guard shop.latitude != nil, shop.logitude != nil else { return }
-        
-        let latitude = shop.latitude!.trimmingCharacters(in: .whitespaces).toDouble()
-        let longitude = shop.logitude!.trimmingCharacters(in: .whitespaces).toDouble()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        let regionRadius: CLLocationDistance = 200
-        
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
-        
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
     // MARK: IBActions
     
     @IBAction func closeDetailView(_ sender: Any) {
@@ -108,36 +67,6 @@ class DetailViewController: UIViewController {
         self.dismiss(animated: true) {}
     }
 }
-
-extension DetailViewController: MKMapViewDelegate
-{
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
-    {
-        if let annotation = annotation as? MapPin
-        {
-            let identifier = "mapPin"
-            var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
-            {
-                dequeuedView.annotation = annotation
-                view = dequeuedView
-            }
-            else
-            {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.canShowCallout = false
-            }
-            
-            view.pinTintColor = UIColor.blue
-            
-            return view
-        }
-        
-        return nil
-    }
-}
-
-
 
 
 

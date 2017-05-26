@@ -10,9 +10,10 @@
         <attribute name="logitude" attributeType="String" syncable="YES"/>
         <attribute name="logoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="logoURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mapData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Shop" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="Shop" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>

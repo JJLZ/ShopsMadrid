@@ -288,15 +288,15 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wYv-ys-Hhr">
                                         <rect key="frame" x="0.0" y="436.5" width="375" height="210.5"/>
                                         <subviews>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HBE-iu-DIe" userLabel="mapView">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="l2G-Eb-gwZ" userLabel="mapView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="210.5"/>
-                                            </mapView>
+                                            </imageView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="HBE-iu-DIe" secondAttribute="bottom" id="2Ek-i0-vgt"/>
-                                            <constraint firstAttribute="trailing" secondItem="HBE-iu-DIe" secondAttribute="trailing" id="Ne6-cW-fjh"/>
-                                            <constraint firstItem="HBE-iu-DIe" firstAttribute="leading" secondItem="wYv-ys-Hhr" secondAttribute="leading" id="dzg-lo-cLr"/>
-                                            <constraint firstItem="HBE-iu-DIe" firstAttribute="top" secondItem="wYv-ys-Hhr" secondAttribute="top" id="wbm-YZ-KD0"/>
+                                            <constraint firstItem="l2G-Eb-gwZ" firstAttribute="leading" secondItem="wYv-ys-Hhr" secondAttribute="leading" id="GvG-2Z-zjA"/>
+                                            <constraint firstItem="l2G-Eb-gwZ" firstAttribute="top" secondItem="wYv-ys-Hhr" secondAttribute="top" id="OsJ-6b-7Ac"/>
+                                            <constraint firstAttribute="bottom" secondItem="l2G-Eb-gwZ" secondAttribute="bottom" id="Q0j-Sz-9Rg"/>
+                                            <constraint firstAttribute="trailing" secondItem="l2G-Eb-gwZ" secondAttribute="trailing" id="bPD-gw-ZCq"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -327,7 +327,7 @@
                         <outlet property="lblAddress" destination="A3d-E3-mMQ" id="6Jc-mz-STX"/>
                         <outlet property="lblDescription" destination="c0i-04-PUe" id="SB7-I2-PSK"/>
                         <outlet property="lblName" destination="PuM-OT-LoC" id="kMQ-jB-oKf"/>
-                        <outlet property="mapView" destination="HBE-iu-DIe" id="1Tj-Ue-Bha"/>
+                        <outlet property="mapView" destination="l2G-Eb-gwZ" id="zrp-cQ-SM9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i3Z-lt-GJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>

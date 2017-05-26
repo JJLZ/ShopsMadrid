@@ -14,7 +14,7 @@ class ImageCache: NSObject
     
     static let sharedInstance: ImageCache = { ImageCache()} ()
     
-    func imageFromCacheWithURLString(_ URLString: String) -> UIImage
+    func imageFromCacheWithURLString(_ URLString: String, defaultImageName: String = "shop" ) -> UIImage
     {
         var image: UIImage? = nil
         
@@ -25,7 +25,7 @@ class ImageCache: NSObject
         }
         else
         {
-            return UIImage(named: "shop")!
+            return UIImage(named: defaultImageName)!
         }
     }
     
@@ -71,6 +71,14 @@ class ImageCache: NSObject
             return
         }
     }
+    
+    public func getShopMapURL(latitude: String, longitude: String) -> String
+    {
+        let strCoordinates = String(latitude + "," + longitude)!
+        
+        return "http://maps.googleapis.com/maps/api/staticmap?center=" + strCoordinates + "&zoom=17&size=320x220&scale=2&markers=%7Ccolor:0x9C7B14%7C" + strCoordinates
+    }
+
 }
 
 

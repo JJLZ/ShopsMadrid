@@ -120,7 +120,7 @@ class MainViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
+        
     // MARK: Actions
     @IBAction func showShops(_ sender: Any)
     {
@@ -378,12 +378,7 @@ class SavingImages: Operation
                 
                 imageCache.cache.removeAllObjects()
                 
-                // update flag
-                let defaults = UserDefaults.standard
-                defaults.set(true, forKey: Global.UserDefaults.allDataLoaded)
-                defaults.synchronize()
-                
-                self.mainVC.setStateControls(state: .Ready)
+                downloadQueue.addOperation(CacheMapImages(mainVC: self.mainVC))
             }
         }
         catch
@@ -398,6 +393,132 @@ class SavingImages: Operation
     }
 }
 
+class CacheMapImages: Operation
+{
+    // MARK: Properties
+    var mainVC: MainViewController
+    var context: NSManagedObjectContext
+    
+    // MARK: Init
+    init(mainVC: MainViewController)
+    {
+        self.mainVC = mainVC
+        self.context = mainVC.context
+    }
+    
+    override func main()
+    {
+        DispatchQueue.main.async {
+            self.mainVC.updateStateLabelWithMesssage("Downloading map images")
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        let entityDesc = NSEntityDescription.entity(forEntityName: "Shop", in: context)
+        request.entity = entityDesc
+        do
+        {
+            let results = try context.fetch(request)
+            
+            let imageCache:ImageCache = ImageCache.sharedInstance
+            let group = DispatchGroup()
+            
+            for item in results {
+                
+                let shop = item as! Shop
+                guard shop.latitude != nil, shop.logitude != nil else { continue }
+                
+                let mapURL = imageCache.getShopMapURL(latitude: shop.latitude!, longitude: shop.logitude!)
+                imageCache.cacheImageWithURLString(mapURL, group: group)
+            }
+            
+            group.notify(queue: DispatchQueue.main, execute: {
+                
+                downloadQueue.addOperation(SavingMapImages(mainVC: self.mainVC))
+            })
+        }
+        catch
+        {
+            DispatchQueue.main.async {
+                self.mainVC.showAlertWith(title: "Error Downloading map images", message: error.localizedDescription)
+            }
+        }
+    }
+}
+
+class SavingMapImages: Operation
+{
+    // MARK: Properties
+    var mainVC: MainViewController
+    var context: NSManagedObjectContext
+    
+    // MARK: Init
+    init(mainVC: MainViewController)
+    {
+        self.mainVC = mainVC
+        self.context = mainVC.context
+    }
+        
+    override func main()
+    {
+        DispatchQueue.main.async {
+            self.mainVC.updateStateLabelWithMesssage("Saving map images")
+        }
+        
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        let entityDesc = NSEntityDescription.entity(forEntityName: "Shop", in: context)
+        request.entity = entityDesc
+        do
+        {
+            let results = try context.fetch(request)
+            
+            let imageCache:ImageCache = ImageCache.sharedInstance
+            
+            for item in results {
+                
+                let shop = item as! Shop
+                guard shop.latitude != nil, shop.logitude != nil else { continue }
+                
+                let mapURL =  imageCache.getShopMapURL(latitude: shop.latitude!, longitude: shop.logitude!)
+                let mapImage: UIImage = imageCache.imageFromCacheWithURLString(mapURL, defaultImageName: "noMap")
+                let imageData: Data = UIImageJPEGRepresentation(mapImage, 0.0)!
+                
+                shop.setValue(imageData, forKey: "mapData")
+                
+                do {
+                    try context.save()
+                } catch {
+                    DispatchQueue.main.async {
+                        self.mainVC.showAlertWith(title: "Error saving map images", message: error.localizedDescription)
+                        self.mainVC.setStateControls(state: .Error)
+                        imageCache.cache.removeAllObjects()
+                        return
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                
+                imageCache.cache.removeAllObjects()
+                
+                // update flag
+                let defaults = UserDefaults.standard
+                defaults.set(true, forKey: Global.UserDefaults.allDataLoaded)
+                defaults.synchronize()
+                
+                self.mainVC.setStateControls(state: .Ready)
+            }
+        }
+        catch
+        {
+            DispatchQueue.main.async {
+                let imageCache:ImageCache = ImageCache.sharedInstance
+                imageCache.cache.removeAllObjects()
+                
+                self.mainVC.showAlertWith(title: "Error saving map images", message: error.localizedDescription)
+            }
+        }
+    }
+}
 
 
 
